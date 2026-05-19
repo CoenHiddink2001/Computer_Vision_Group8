@@ -118,7 +118,7 @@ def evaluate(model, data_loader, device):
         # move outputs to CPU
         outputs = [{k: v.to(cpu_device) for k, v in t.items()} for t in outputs]
         model_time = time.time() - model_time
-        res = {target["image_id"]: output for target, output in zip(targets, outputs)}
+        res = {int(target["image_id"].item()): output for target, output in zip(targets, outputs)}
 
         # update COCO evaluator
         coco_evaluator.update(res)
